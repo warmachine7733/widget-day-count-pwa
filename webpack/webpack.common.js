@@ -4,6 +4,8 @@ const path = require("path");
 const SRC_DIR = path.resolve("src");
 
 module.exports = {
+  entry: "./src/index.tsx",
+
   module: {
     rules: [
       {
@@ -28,10 +30,12 @@ module.exports = {
       },
     ],
   },
+
   plugins: [
     new HtmlWebpackPlugin({
       template: "./public/index.html",
-      // favicon: "./public/favicon.ico",
+      favicon: "./public/favicon.ico",
+      inject: "body",
       minify: {
         collapseWhitespace: true,
         removeComments: true,
@@ -40,6 +44,7 @@ module.exports = {
       },
     }),
   ],
+
   resolve: {
     extensions: [".js", ".jsx", ".ts", ".tsx"],
   },
