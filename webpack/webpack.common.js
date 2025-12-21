@@ -5,6 +5,7 @@ const path = require("path");
 const SRC_DIR = path.resolve("src");
 
 module.exports = {
+  entry: path.resolve(__dirname, "../src/index.tsx"),
   module: {
     rules: [
       {
@@ -36,9 +37,11 @@ module.exports = {
         { from: "public/icon-192.png", to: "icon-192.png" },
         { from: "public/icon-512.png", to: "icon-512.png" },
       ]}),
-    new HtmlWebpackPlugin({
-      template: "./public/index.html",
+    new HtmlWebpackPlugin({     
       favicon: "./public/favicon.ico",
+      template: path.resolve(__dirname, "../public/index.html"),
+      inject: "body",
+      scriptLoading: "defer", 
       minify: {
         collapseWhitespace: true,
         removeComments: true,
