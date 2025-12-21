@@ -1,6 +1,7 @@
 .app {
   display: flex;
   justify-content: center;
-  margin-top: 40%;
+  align-items: center;
+  height: 70vh;
   padding: 20px;
 }
