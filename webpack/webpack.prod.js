@@ -6,8 +6,10 @@ module.exports = merge(common, {
   entry: "./src/index.tsx",
   mode: "production",
   output: {
+    path: path.resolve(__dirname, "dist"),
     publicPath: "/",
-    filename: "main.js",
+    filename: "main.[contenthash].js",
+    clean: true
   },
   plugins: [new CompressionPlugin()],
 });
