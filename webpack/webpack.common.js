@@ -14,7 +14,6 @@ module.exports = {
         exclude: /node_modules/,
         options: {
           presets: ["@babel/preset-env", "@babel/preset-react"],
-          plugins: [require.resolve("react-refresh/babel")],
         },
       },
       {
