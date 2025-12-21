@@ -7,8 +7,10 @@ module.exports = merge(common, {
   entry: path.resolve(__dirname, "../src/index.tsx"),
   mode: "production",
   output: {
-    publicPath: "/",
+    path: path.resolve(__dirname, "../dist"),
+    publicPath: "auto",
     filename: "main.js",
+    clean: true,
   },
   plugins: [new CompressionPlugin()],
 });
