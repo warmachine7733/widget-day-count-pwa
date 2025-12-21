@@ -4,7 +4,7 @@ import Widget from "./widget";
 
 const App = () => {
   return (
-   <div style={{ padding: 40 }}>
+   <div className="app">
       <Widget />
     </div>
   );
