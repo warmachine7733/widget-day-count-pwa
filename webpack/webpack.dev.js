@@ -3,7 +3,7 @@ const common = require("./webpack.common.js");
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
 module.exports = merge(common, {
-  entry: "./src/index.tsx",
+  entry: path.resolve(__dirname, "../src/index.tsx"),
   mode: "development",
   devServer: {
     historyApiFallback: true,
