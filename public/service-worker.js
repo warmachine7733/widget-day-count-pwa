@@ -1,49 +1,42 @@
 const CACHE_NAME = "widget-cache-v2";
+const ASSETS = [
+  "/",
+  "/index.html",
+  "/main.js",
+  "/manifest.json",
+  "/icon-192.png",
+  "/icon-512.png"
+];
 
+// Install: cache app shell
 self.addEventListener("install", (event) => {
-  self.skipWaiting();
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll([
-        "/",
-        "/index.html",
-        "/manifest.json"
-      ]);
+      return cache.addAll(ASSETS);
     })
   );
+  self.skipWaiting();
 });
 
+// Activate: cleanup old caches
 self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches.keys().then((keys) =>
       Promise.all(
-        keys.map((key) => {
-          if (key !== CACHE_NAME) {
-            return caches.delete(key);
-          }
-        })
+        keys
+          .filter((key) => key !== CACHE_NAME)
+          .map((key) => caches.delete(key))
       )
     )
   );
   self.clients.claim();
 });
 
+// Fetch: offline-first for app shell
 self.addEventListener("fetch", (event) => {
-  // Only handle GET requests
-  if (event.request.method !== "GET") return;
-
   event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
-      if (cachedResponse) {
-        return cachedResponse;
-      }
-
-      return fetch(event.request).catch(() => {
-        // Fallback to app shell for navigation
-        if (event.request.mode === "navigate") {
-          return caches.match("/");
-        }
-      });
+    caches.match(event.request).then((cached) => {
+      return cached || fetch(event.request);
     })
   );
 });
